@@ -1,8 +1,25 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
+        maven{
+            allowInsecureProtocol true
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            allowInsecureProtocol true
+            setUrl("http://maven.aliyun.com/nexus/content/repositories/jcenter")
+        }
+        maven {
+            allowInsecureProtocol true
+            setUrl("http://maven.aliyun.com/nexus/content/repositories/google")
+        }
+        maven {
+            allowInsecureProtocol true
+            setUrl("http://maven.aliyun.com/nexus/content/repositories/gradle-plugin")
+        }
+        maven {
+            url 'https://jitpack.io'
+        }
     }
 }
 rootProject.name = "app"

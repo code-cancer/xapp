@@ -1,8 +1,27 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        google()
-        mavenCentral()
+        repositories {
+            maven{
+                allowInsecureProtocol true
+                url 'http://maven.aliyun.com/nexus/content/groups/public/'
+            }
+            maven {
+                allowInsecureProtocol true
+                setUrl("http://maven.aliyun.com/nexus/content/repositories/jcenter")
+            }
+            maven {
+                allowInsecureProtocol true
+                setUrl("http://maven.aliyun.com/nexus/content/repositories/google")
+            }
+            maven {
+                allowInsecureProtocol true
+                setUrl("http://maven.aliyun.com/nexus/content/repositories/gradle-plugin")
+            }
+            maven {
+                url 'https://jitpack.io'
+            }
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"
