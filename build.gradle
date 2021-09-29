@@ -3,20 +3,16 @@ buildscript {
     repositories {
         repositories {
             maven{
-                allowInsecureProtocol true
-                url 'http://maven.aliyun.com/nexus/content/groups/public/'
+                url 'https://maven.aliyun.com/repository/public'
             }
             maven {
-                allowInsecureProtocol true
-                setUrl("http://maven.aliyun.com/nexus/content/repositories/jcenter")
+                url "https://maven.aliyun.com/repository/public"
             }
             maven {
-                allowInsecureProtocol true
-                setUrl("http://maven.aliyun.com/nexus/content/repositories/google")
+                url "https://maven.aliyun.com/repository/google"
             }
             maven {
-                allowInsecureProtocol true
-                setUrl("http://maven.aliyun.com/nexus/content/repositories/gradle-plugin")
+                url "https://maven.aliyun.com/repository/gradle-plugin"
             }
             maven {
                 url 'https://jitpack.io'
