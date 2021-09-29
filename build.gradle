@@ -17,6 +17,10 @@ buildscript {
             maven {
                 url 'https://jitpack.io'
             }
+            maven {
+                allowInsecureProtocol true
+                url 'http://cache'
+            }
         }
     }
     dependencies {
