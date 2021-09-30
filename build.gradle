@@ -7,12 +7,6 @@ allprojects {
         maven {
             url "https://maven.aliyun.com/repository/google"
         }
-        maven {
-            url "https://maven.aliyun.com/repository/gradle-plugin"
-        }
-        maven {
-            url 'https://jitpack.io'
-        }
     }
 }
 buildscript {
@@ -22,6 +16,9 @@ buildscript {
         }
         maven {
             url "https://maven.aliyun.com/repository/gradle-plugin"
+        }
+        maven {
+            url 'https://jitpack.io'
         }
     }
     dependencies {
@@ -35,8 +32,4 @@ buildscript {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-repositories {
-    google()
 }
