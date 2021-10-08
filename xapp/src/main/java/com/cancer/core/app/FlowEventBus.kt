@@ -1,4 +1,4 @@
-package com.xapp.tools.app
+package com.cancer.core.app
 
 import androidx.lifecycle.LifecycleOwner
 

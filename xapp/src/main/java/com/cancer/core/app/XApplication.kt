@@ -1,4 +1,4 @@
-package com.xapp.tools.app
+package com.cancer.core.app
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 
-class XApplication : Application(), ViewModelStoreOwner{
+open class XApplication : Application(), ViewModelStoreOwner{
 
     companion object {
 
