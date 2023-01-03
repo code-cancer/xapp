@@ -13,28 +13,37 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import java.util.concurrent.ConcurrentHashMap
 
-object XBus {
+class XBus {
 
-    private const val TAG = "XBus"
-    private val flowsMap = ConcurrentHashMap<String, MutableSharedFlow<IEvent>>()
-    private val mainScope = MainScope()
+    abstract class Event
 
-    fun getFlow(eventClassName: String): MutableSharedFlow<IEvent> {
-        return flowsMap[eventClassName] ?: MutableSharedFlow<IEvent>().also { flowsMap[eventClassName] = it }
-    }
+    companion object {
+        const val TAG = "XBus"
+        private val flowsMap = ConcurrentHashMap<String, MutableSharedFlow<Event>>()
+        private val mainScope = MainScope()
 
-    fun post(event: IEvent, delay: Long = 0) = mainScope.launchDelay(delay = delay) {
-        Log.d(TAG, "post(delay = $delay): $event")
-        getFlow(event.javaClass.simpleName).emit(event)
-    }
+        fun getFlow(eventClassName: String): MutableSharedFlow<Event> {
+            return flowsMap[eventClassName] ?: MutableSharedFlow<Event>().also { flowsMap[eventClassName] = it }
+        }
 
-    inline fun <reified T : IEvent> observe(
-        lifecycleOwner: LifecycleOwner,
-        dispatcher: CoroutineDispatcher = Dispatchers.Main,
-        minState: Lifecycle.State = Lifecycle.State.CREATED,
-        crossinline onReceived: (T) -> Unit
-    ) = getFlow(T::class.java.simpleName).collectIn(lifecycleOwner.lifecycleScope, dispatcher) {
-        lifecycleOwner.lifecycle.whenStateAtLeast(minState) { if (it is T) onReceived(it) }
+        fun post(event: Event, delay: Long = 0) = mainScope.launchDelay(delay = delay) {
+            Log.d(TAG, "post(delay = $delay): $event")
+            getFlow(event.javaClass.simpleName).emit(event)
+        }
+
+        inline fun <reified T : Event> observe(
+            lifecycleOwner: LifecycleOwner,
+            dispatcher: CoroutineDispatcher = Dispatchers.Main,
+            minState: Lifecycle.State = Lifecycle.State.CREATED,
+            crossinline onReceived: (T) -> Unit,
+        ) = getFlow(T::class.java.simpleName).collectIn(lifecycleOwner.lifecycleScope, dispatcher) {
+            lifecycleOwner.lifecycle.whenStateAtLeast(minState) {
+                if (it is T) {
+                    Log.d(TAG, "Received: $it")
+                    onReceived(it)
+                }
+            }
+        }
     }
 
 }
