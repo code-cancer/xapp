@@ -14,15 +14,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        XBus.observe<XEvent.ShowUserName>(this) {
+        XBus.observe<Event.ShowUserName>(this) {
             binding.tvCount.text = it.userName
         }
         binding.btnAdd.setOnClickListener {
-            XBus.post(XEvent.ShowUserName(count.toString()))
+            XBus.post(Event.ShowUserName(count.toString()))
             count++
         }
 
     }
-
 
 }

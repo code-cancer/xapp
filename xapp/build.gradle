@@ -5,11 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk 30
+
+    compileSdk 33
 
     defaultConfig {
         minSdk 23
-        targetSdk 30
+        targetSdk 33
         versionCode 101
         versionName "1.0.1"
         consumerProguardFiles "consumer-rules.pro"
@@ -33,7 +34,8 @@ android {
 dependencies {
 
     //lifecycle
-    compileOnly 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    compileOnly 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+
 
 }
 

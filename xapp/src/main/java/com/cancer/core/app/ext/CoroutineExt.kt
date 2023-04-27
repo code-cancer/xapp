@@ -10,7 +10,7 @@ fun CoroutineScope.launchDelay(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     delay: Long,
-    block: suspend CoroutineScope.() -> Unit
+    block: suspend CoroutineScope.() -> Unit,
 ): Job {
     return launch(context, start) {
         delay(delay)
@@ -18,10 +18,10 @@ fun CoroutineScope.launchDelay(
     }
 }
 
-fun <T> Flow<T>.collectIn(
+inline fun <T> Flow<T>.collectIn(
     coroutineScope: CoroutineScope,
     dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend (value: T) -> Unit
+    crossinline block: suspend (value: T) -> Unit,
 ) = coroutineScope.launch(dispatcher) {
     collect { block(it) }
 }
